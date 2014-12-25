@@ -19,13 +19,13 @@ class highlight2mail(znc.Module):
         # set default vars
         self.defaults = {'smtp_server': 'localhost', 'smtp_port': '25', 'username': '', 'password': '', 'recipient': args}
         if 'smtp_server' not in self.nv:
-            self.nv['smtp_server'] = 'localhost'
+            self.nv['smtp_server'] = self.defaults['smtp_server']
         if 'smtp_port' not in self.nv:
-            self.nv['smtp_port'] = '25'
+            self.nv['smtp_port'] = self.defaults['smtp_port']
         if 'username' not in self.nv:
-            self.nv['username'] = ''
+            self.nv['username'] = self.defaults['username']
         if 'password' not in self.nv:
-            self.nv['password'] = ''
+            self.nv['password'] = self.defaults['password']
 
         if 'catch_count' not in self.nv:
             self.nv['catch_count'] = '5'
@@ -40,8 +40,8 @@ class highlight2mail(znc.Module):
         if args:
             self.nv['recipient'] = args
             self.PutModule('Set recipient to {}!'.format(args))
-        else:
-            self.nv['recipient'] = ''
+        elif 'recipient' not in self.nv:
+            self.nv['recipient'] = self.defaults['recipient']
         return True
 
     #
